@@ -136,7 +136,6 @@ export default function Quiz() {
           {showComparison && (
             <div className="flex w-full justify-around items-center">
               <div
-                className="opacity-50"
                 style={currentQuestion.originalStyle}
               />
               <ArrowRight className="h-8 w-8 text-foreground/30 shrink-0" />
