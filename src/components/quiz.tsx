@@ -142,9 +142,8 @@ export default function Quiz() {
               <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"
                 style={currentQuestion.style}
-              >
-                <div className="h-full w-full bg-transparent" data-ai-hint="geometric shape for margin"></div>
-              </div>
+                data-ai-hint="geometric shape for margin"
+              />
             </div>
           )}
           {!showContainer && (
