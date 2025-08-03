@@ -184,7 +184,7 @@ export const quizQuestions: Question[] = [
     ],
     Icon: SlidersHorizontal,
   },
-    {
+  {
     id: 'f2',
     title: 'High Contrast',
     property: 'filter',
@@ -196,6 +196,21 @@ export const quizQuestions: Question[] = [
         { label: 'filter: contrast(200%);', isCorrect: false },
         { label: 'filter: brightness(150%);', isCorrect: false },
         { label: 'filter: contrast(150%);', isCorrect: true },
+    ],
+    Icon: SlidersHorizontal,
+  },
+  {
+    id: 'f3',
+    title: 'A Bit Blurry',
+    property: 'filter',
+    description: 'This element is out of focus. Which filter value is making it blurry?',
+    style: { ...sharedBoxStyle, borderRadius: '1rem', filter: 'blur(4px)' },
+    originalStyle: { ...sharedBoxStyle, borderRadius: '1rem' },
+    options: [
+        { label: 'filter: blur(2px);', isCorrect: false },
+        { label: 'filter: blur(4px);', isCorrect: true },
+        { label: 'filter: brightness(80%);', isCorrect: false },
+        { label: 'filter: drop-shadow(0 0 4px);', isCorrect: false },
     ],
     Icon: SlidersHorizontal,
   },
