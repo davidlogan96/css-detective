@@ -133,7 +133,7 @@ export default function Quiz() {
         <div className="relative flex h-60 w-full items-center justify-center rounded-lg border-2 border-dashed bg-muted/30 p-4 overflow-hidden">
           {showOriginalState && (
             <div
-              className="absolute flex items-center justify-center border-2 border-dashed border-foreground/30 opacity-50"
+              className="absolute border-2 border-dashed border-foreground/30 opacity-50"
               style={currentQuestion.originalStyle}
             />
           )}
