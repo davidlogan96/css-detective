@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo, useEffect } from 'react';
@@ -114,7 +115,8 @@ export default function Quiz() {
   }
 
   const showOriginalState = currentQuestion.property === 'transform' || currentQuestion.property === 'filter';
-  const showContainer = currentQuestion.property === 'margin';
+  const showMarginContainer = currentQuestion.property === 'margin';
+  const showPaddingContent = currentQuestion.property === 'padding';
 
   return (
     <Card className="w-full max-w-2xl animate-in fade-in zoom-in-95 duration-500">
@@ -132,12 +134,18 @@ export default function Quiz() {
       <CardContent>
         <div className="relative flex h-60 w-full items-center justify-center rounded-lg border-2 border-dashed bg-muted/30 p-4 overflow-hidden">
           {showOriginalState && (
-            <div
-              className="absolute border-2 border-dashed border-foreground/30 opacity-50"
-              style={currentQuestion.originalStyle}
-            />
+            <>
+              <div
+                className="absolute border-2 border-dashed border-foreground/30 opacity-50"
+                style={currentQuestion.originalStyle}
+              />
+              <div
+                className="flex items-center justify-center transition-all duration-300 ease-in-out"
+                style={currentQuestion.style}
+              />
+            </>
           )}
-           {showContainer && (
+          {showMarginContainer && (
             <div className="w-full h-full border-2 border-dashed border-foreground/30 flex items-center justify-center">
               <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"
@@ -146,13 +154,20 @@ export default function Quiz() {
               />
             </div>
           )}
-          {!showContainer && (
+          {showPaddingContent && (
              <div
               className="flex items-center justify-center transition-all duration-300 ease-in-out"
               style={currentQuestion.style}
             >
-              {currentQuestion.property === 'padding' && <div className="h-full w-full rounded-md bg-background/50 border-2 border-dashed" data-ai-hint="geometric shape"></div>}
+              <div className="h-full w-full rounded-md bg-background/50 border-2 border-dashed" data-ai-hint="geometric shape"></div>
             </div>
+          )}
+          {/* For box-shadow and border-radius */}
+          {!showOriginalState && !showMarginContainer && !showPaddingContent && (
+            <div
+                className="flex items-center justify-center transition-all duration-300 ease-in-out"
+                style={currentQuestion.style}
+            />
           )}
         </div>
       </CardContent>
