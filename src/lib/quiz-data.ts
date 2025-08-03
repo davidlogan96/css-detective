@@ -1,19 +1,70 @@
 
 import type { CSSProperties } from 'react';
-import { Ruler, Scan, Square, MousePointer, SlidersHorizontal, Eye } from 'lucide-react';
+import { Ruler, Scan, Square, MousePointer, SlidersHorizontal, Eye, Layout, Type, Palette, Layers } from 'lucide-react';
+
+export type Category = {
+  id: string;
+  name: string;
+  description: string;
+  icon: React.ElementType;
+  color: string;
+};
 
 export type Question = {
   id: string;
+  category: string;
   title: string;
-  property: 'border-radius' | 'margin' | 'padding' | 'border' | 'transform' | 'filter' | 'cursor' | 'opacity';
+  property: 'border-radius' | 'margin' | 'padding' | 'border' | 'transform' | 'filter' | 'cursor' | 'opacity' | 'flexbox' | 'grid' | 'box-shadow' | 'font-weight' | 'text-align' | 'background';
   description: string;
   style: CSSProperties;
   originalStyle?: CSSProperties;
+  containerContent?: boolean;
+  multipleItems?: boolean;
+  gridItems?: boolean;
+  textContent?: string;
   options: {
     label: string;
     isCorrect: boolean;
   }[];
   Icon: React.ElementType;
+};
+
+export const categories: Record<string, Category> = {
+  basics: {
+    id: 'basics',
+    name: 'Basics',
+    description: 'Fundamental CSS properties like borders, padding, and margin',
+    icon: Square,
+    color: 'hsl(var(--primary))'
+  },
+  layout: {
+    id: 'layout', 
+    name: 'Layout',
+    description: 'Flexbox, Grid, and positioning properties',
+    icon: Layout,
+    color: 'hsl(160 60% 45%)'
+  },
+  effects: {
+    id: 'effects',
+    name: 'Visual Effects', 
+    description: 'Transforms, filters, shadows, and visual styling',
+    icon: SlidersHorizontal,
+    color: 'hsl(280 65% 60%)'
+  },
+  typography: {
+    id: 'typography',
+    name: 'Typography',
+    description: 'Font properties, text styling, and alignment',
+    icon: Type,
+    color: 'hsl(30 80% 55%)'
+  },
+  colors: {
+    id: 'colors',
+    name: 'Colors & Gradients',
+    description: 'Color values, backgrounds, and gradient effects', 
+    icon: Palette,
+    color: 'hsl(340 75% 55%)'
+  }
 };
 
 const sharedBoxStyle: CSSProperties = {
@@ -27,8 +78,10 @@ const sharedBoxStyle: CSSProperties = {
 };
 
 export const quizQuestions: Question[] = [
+  // BASICS CATEGORY
   {
     id: 'br1',
+    category: 'basics',
     title: 'Guess That Curve',
     property: 'border-radius',
     description: "Which border-radius value creates this shape?",
@@ -43,6 +96,7 @@ export const quizQuestions: Question[] = [
   },
   {
     id: 'br2',
+    category: 'basics',
     title: 'The Perfect Circle',
     property: 'border-radius',
     description: "What's the secret to a perfect circle with border-radius?",
@@ -57,6 +111,7 @@ export const quizQuestions: Question[] = [
   },
   {
     id: 'b1',
+    category: 'basics',
     title: 'Chunky Border',
     property: 'border',
     description: 'Which border value creates this thick outline?',
@@ -71,6 +126,7 @@ export const quizQuestions: Question[] = [
   },
   {
     id: 'b2',
+    category: 'basics',
     title: 'Dashed Style',
     property: 'border',
     description: 'Which border-style is being used to create this effect?',
@@ -85,6 +141,7 @@ export const quizQuestions: Question[] = [
   },
   {
     id: 'm1',
+    category: 'basics',
     title: 'A Little Breathing Room',
     property: 'margin',
     description: "How much margin is being applied to all sides of the blue box?",
@@ -99,6 +156,7 @@ export const quizQuestions: Question[] = [
   },
   {
     id: 'm2',
+    category: 'basics',
     title: 'Top and Bottom',
     property: 'margin',
     description: "What's the two-value margin shorthand for this element's spacing?",
@@ -113,6 +171,7 @@ export const quizQuestions: Question[] = [
   },
   {
     id: 'p1',
+    category: 'basics',
     title: 'Cozy Interior',
     property: 'padding',
     description: "The space inside the blue box is its padding. What's the value?",
@@ -127,6 +186,7 @@ export const quizQuestions: Question[] = [
   },
   {
     id: 'p2',
+    category: 'basics',
     title: 'Wide Load',
     property: 'padding',
     description: "This box has different padding on its vertical and horizontal axes. What's the shorthand?",
@@ -139,8 +199,91 @@ export const quizQuestions: Question[] = [
     ],
     Icon: Ruler,
   },
+
+  // LAYOUT CATEGORY
+  {
+    id: 'flex1',
+    category: 'layout',
+    title: 'Center Stage',
+    property: 'flexbox',
+    description: 'This item is perfectly positioned in the center of its container. Which properties achieve this?',
+    style: { 
+      width: '12rem', 
+      height: '8rem', 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center',
+      backgroundColor: 'hsl(var(--muted))',
+      borderRadius: '0.5rem',
+      border: '2px dashed hsl(var(--border))'
+    },
+    containerContent: true,
+    options: [
+      { label: 'justify-content: center;\nalign-items: center;', isCorrect: true },
+      { label: 'justify-content: center;\nalign-items: flex-start;', isCorrect: false },
+      { label: 'justify-content: flex-start;\nalign-items: center;', isCorrect: false },
+      { label: 'justify-content: space-between;\nalign-items: center;', isCorrect: false },
+    ],
+    Icon: Layout,
+  },
+  {
+    id: 'flex2',
+    category: 'layout',
+    title: 'Equal Distribution',
+    property: 'flexbox',
+    description: 'These items have maximum space between them, pushing them to opposite ends. What\'s the property?',
+    style: { 
+      width: '12rem', 
+      height: '6rem', 
+      display: 'flex', 
+      justifyContent: 'space-between', 
+      alignItems: 'center',
+      backgroundColor: 'hsl(var(--muted))',
+      borderRadius: '0.5rem',
+      border: '2px dashed hsl(var(--border))',
+      padding: '1rem'
+    },
+    multipleItems: true,
+    options: [
+      { label: 'justify-content: space-around;', isCorrect: false },
+      { label: 'justify-content: space-between;', isCorrect: true },
+      { label: 'justify-content: space-evenly;', isCorrect: false },
+      { label: 'justify-content: center;', isCorrect: false },
+    ],
+    Icon: Layout,
+  },
+  {
+    id: 'grid1',
+    category: 'layout',
+    title: 'Perfect Square',
+    property: 'grid',
+    description: 'This 2x2 layout creates equal-sized cells. Which property creates this structure?',
+    style: { 
+      width: '12rem', 
+      height: '8rem', 
+      display: 'grid', 
+      gridTemplateColumns: '1fr 1fr',
+      gridTemplateRows: '1fr 1fr',
+      gap: '0.5rem',
+      backgroundColor: 'hsl(var(--muted))',
+      borderRadius: '0.5rem',
+      border: '2px dashed hsl(var(--border))',
+      padding: '1rem'
+    },
+    gridItems: true,
+    options: [
+      { label: 'grid-template-columns: 50% 50%;', isCorrect: false },
+      { label: 'grid-template-columns: 1fr 1fr;', isCorrect: true },
+      { label: 'grid-template-columns: auto auto;', isCorrect: false },
+      { label: 'grid-template-columns: repeat(3, 1fr);', isCorrect: false },
+    ],
+    Icon: Layout,
+  },
+
+  // EFFECTS CATEGORY
   {
     id: 't1',
+    category: 'effects',
     title: 'Slight Tilt',
     property: 'transform',
     description: 'This element is slightly rotated. Which transform value achieves this?',
@@ -156,9 +299,10 @@ export const quizQuestions: Question[] = [
   },
   {
     id: 't2',
-    title: 'Bigger and Bolder',
+    category: 'effects',
+    title: 'Size Boost',
     property: 'transform',
-    description: 'How is this element being enlarged?',
+    description: 'This element appears larger than its original size while maintaining its proportions. How is this achieved?',
     style: { ...sharedBoxStyle, borderRadius: '1rem', transform: 'scale(1.2)' },
     originalStyle: { ...sharedBoxStyle, borderRadius: '1rem' },
     options: [
@@ -171,6 +315,7 @@ export const quizQuestions: Question[] = [
   },
   {
     id: 'f1',
+    category: 'effects',
     title: 'Faded Out',
     property: 'filter',
     description: 'This element is faded. Which filter is being applied?',
@@ -186,9 +331,10 @@ export const quizQuestions: Question[] = [
   },
   {
     id: 'f2',
-    title: 'High Contrast',
+    category: 'effects',
+    title: 'Enhanced Intensity',
     property: 'filter',
-    description: 'Which CSS property and value are making this element pop?',
+    description: 'This element appears more vivid and intense than normal. Which property makes it stand out more?',
     style: { ...sharedBoxStyle, borderRadius: '1rem', filter: 'contrast(150%)' },
     originalStyle: { ...sharedBoxStyle, borderRadius: '1rem' },
     options: [
@@ -201,9 +347,10 @@ export const quizQuestions: Question[] = [
   },
   {
     id: 'f3',
-    title: 'A Bit Blurry',
+    category: 'effects',
+    title: 'Out of Focus',
     property: 'filter',
-    description: 'This element is out of focus. Which filter value is making it blurry?',
+    description: 'This element appears soft and unfocused, like looking through frosted glass. Which effect creates this?',
     style: { ...sharedBoxStyle, borderRadius: '1rem', filter: 'blur(4px)' },
     originalStyle: { ...sharedBoxStyle, borderRadius: '1rem' },
     options: [
@@ -215,10 +362,26 @@ export const quizQuestions: Question[] = [
     Icon: SlidersHorizontal,
   },
   {
+    id: 'shadow1',
+    category: 'effects',
+    title: 'Floating Effect',
+    property: 'box-shadow',
+    description: 'This element appears to hover above the surface. Which property creates this depth effect?',
+    style: { ...sharedBoxStyle, borderRadius: '1rem', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' },
+    options: [
+      { label: 'box-shadow: 0 2px 4px rgba(0,0,0,0.1);', isCorrect: false },
+      { label: 'box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);', isCorrect: true },
+      { label: 'box-shadow: 2px 2px 8px black;', isCorrect: false },
+      { label: 'box-shadow: inset 0 0 10px rgba(0,0,0,0.2);', isCorrect: false },
+    ],
+    Icon: Layers,
+  },
+  {
     id: 'c1',
-    title: 'Clickable Clue',
+    category: 'effects',
+    title: 'Interactive Hint',
     property: 'cursor',
-    description: 'Which cursor property indicates this element is interactive?',
+    description: 'When you hover over this element, it signals that it can be clicked. Which property creates this behavior?',
     style: { ...sharedBoxStyle, borderRadius: '1rem', cursor: 'pointer' },
     options: [
         { label: 'cursor: help;', isCorrect: false },
@@ -230,9 +393,10 @@ export const quizQuestions: Question[] = [
   },
   {
     id: 'o1',
-    title: 'Slightly See-Through',
+    category: 'effects',
+    title: 'Ghost Mode',
     property: 'opacity',
-    description: 'This element is semi-transparent. Which opacity value is being used?',
+    description: 'This element appears partially faded, allowing you to see through it. Which value creates this transparency level?',
     style: { ...sharedBoxStyle, borderRadius: '1rem', opacity: 0.6 },
     options: [
       { label: 'opacity: 0.2;', isCorrect: false },
@@ -241,5 +405,79 @@ export const quizQuestions: Question[] = [
       { label: 'opacity: 1;', isCorrect: false },
     ],
     Icon: Eye,
+  },
+
+  // TYPOGRAPHY CATEGORY
+  {
+    id: 'font1',
+    category: 'typography',
+    title: 'Heavy Impact',
+    property: 'font-weight',
+    description: 'This text has extra thickness and visual weight. Which property value creates this effect?',
+    style: { 
+      ...sharedBoxStyle, 
+      backgroundColor: 'transparent',
+      fontSize: '2rem',
+      fontWeight: '700',
+      color: 'hsl(var(--primary))'
+    },
+    textContent: 'STRONG',
+    options: [
+      { label: 'font-weight: normal;', isCorrect: false },
+      { label: 'font-weight: 500;', isCorrect: false },
+      { label: 'font-weight: 700;', isCorrect: true },
+      { label: 'font-weight: 900;', isCorrect: false },
+    ],
+    Icon: Type,
+  },
+  {
+    id: 'align1',
+    category: 'typography', 
+    title: 'Perfect Balance',
+    property: 'text-align',
+    description: 'This text is positioned equally from both edges of its container. What creates this positioning?',
+    style: { 
+      width: '12rem', 
+      height: '6rem', 
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      backgroundColor: 'hsl(var(--muted))',
+      borderRadius: '0.5rem',
+      border: '2px dashed hsl(var(--border))',
+      padding: '1rem',
+      textAlign: 'center',
+      fontSize: '1.2rem',
+      color: 'hsl(var(--primary))'
+    },
+    textContent: 'Centered Text',
+    options: [
+      { label: 'text-align: left;', isCorrect: false },
+      { label: 'text-align: center;', isCorrect: true },
+      { label: 'text-align: right;', isCorrect: false },
+      { label: 'text-align: justify;', isCorrect: false },
+    ],
+    Icon: Type,
+  },
+
+  // COLORS CATEGORY
+  {
+    id: 'grad1',
+    category: 'colors',
+    title: 'Color Transition',
+    property: 'background',
+    description: 'This smooth color blend transitions from blue to purple. Which CSS creates this diagonal color effect?',
+    style: { 
+      ...sharedBoxStyle, 
+      background: 'linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)))',
+      borderRadius: '1rem'
+    },
+    options: [
+      { label: 'background: linear-gradient(45deg, blue, purple);', isCorrect: true },
+      { label: 'background: radial-gradient(blue, purple);', isCorrect: false },
+      { label: 'background: linear-gradient(90deg, purple, blue);', isCorrect: false },
+      { label: 'background-color: blue;', isCorrect: false },
+    ],
+    Icon: Palette,
   },
 ];
