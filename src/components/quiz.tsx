@@ -132,7 +132,8 @@ export default function Quiz() {
             className="flex items-center justify-center transition-all duration-300 ease-in-out"
             style={currentQuestion.style}
           >
-            {currentQuestion.property === 'padding' && <div className="h-8 w-8 rounded-md bg-background/50" data-ai-hint="geometric shape"></div>}
+            {currentQuestion.property === 'padding' && <div className="h-full w-full rounded-md bg-background/50 border-2 border-dashed" data-ai-hint="geometric shape"></div>}
+            {currentQuestion.property === 'margin' && <div className="h-full w-full bg-transparent" data-ai-hint="geometric shape for margin"></div>}
           </div>
         </div>
       </CardContent>

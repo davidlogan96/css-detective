@@ -1,10 +1,10 @@
 import type { CSSProperties } from 'react';
-import { Ruler, Scan } from 'lucide-react';
+import { Ruler, Scan, Square, MousePointer, SlidersHorizontal } from 'lucide-react';
 
 export type Question = {
   id: string;
   title: string;
-  property: 'border-radius' | 'margin' | 'padding';
+  property: 'border-radius' | 'margin' | 'padding' | 'box-shadow' | 'transform' | 'filter';
   description: string;
   style: CSSProperties;
   options: {
@@ -53,33 +53,33 @@ export const quizQuestions: Question[] = [
     ],
     Icon: Scan,
   },
-  {
-    id: 'br3',
-    title: 'Asymmetrical Style',
-    property: 'border-radius',
-    description: 'This shape has different values for its corners. Can you spot the correct shorthand?',
-    style: { ...sharedBoxStyle, borderRadius: '0.5rem 2rem' },
+    {
+    id: 'bs1',
+    title: 'Subtle Shadow',
+    property: 'box-shadow',
+    description: 'Which box-shadow value creates this subtle lift effect?',
+    style: { ...sharedBoxStyle, borderRadius: '1rem', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' },
     options: [
-      { label: 'border-radius: 2rem 0.5rem;', isCorrect: false },
-      { label: 'border-radius: 0.5rem;', isCorrect: false },
-      { label: 'border-radius: 0.5rem 2rem;', isCorrect: true },
-      { label: 'border-radius: 2rem;', isCorrect: false },
+      { label: 'shadow-sm', isCorrect: false },
+      { label: 'shadow-md', isCorrect: true },
+      { label: 'shadow-lg', isCorrect: false },
+      { label: 'shadow-xl', isCorrect: false },
     ],
-    Icon: Scan,
+    Icon: Square,
   },
   {
-    id: 'br4',
-    title: 'All Four Corners',
-    property: 'border-radius',
-    description: 'A more complex shape this time. Which four-value shorthand is correct?',
-    style: { ...sharedBoxStyle, borderRadius: '0.5rem 1rem 2rem 3rem' },
+    id: 'bs2',
+    title: 'Deep Shadow',
+    property: 'box-shadow',
+    description: 'This shadow is much more pronounced. Which one is it?',
+    style: { ...sharedBoxStyle, borderRadius: '1rem', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)' },
     options: [
-      { label: '0.5rem 2rem 1rem 3rem', isCorrect: false },
-      { label: '0.5rem 1rem 3rem 2rem', isCorrect: false },
-      { label: '0.5rem 1rem 2rem 3rem', isCorrect: true },
-      { label: '3rem 2rem 1rem 0.5rem', isCorrect: false },
+        { label: 'shadow-lg', isCorrect: false },
+        { label: 'shadow-xl', isCorrect: false },
+        { label: 'shadow-2xl', isCorrect: true },
+        { label: 'shadow-inner', isCorrect: false },
     ],
-    Icon: Scan,
+    Icon: Square,
   },
   {
     id: 'm1',
@@ -138,31 +138,59 @@ export const quizQuestions: Question[] = [
     Icon: Ruler,
   },
   {
-    id: 'm3',
-    title: 'The Lone Margin',
-    property: 'margin',
-    description: 'Only one side has margin. Which property is it?',
-    style: { ...sharedBoxStyle, width: '8rem', height: '8rem', marginLeft: '4rem' },
+    id: 't1',
+    title: 'Slight Tilt',
+    property: 'transform',
+    description: 'This element is slightly rotated. Which transform value achieves this?',
+    style: { ...sharedBoxStyle, borderRadius: '1rem', transform: 'rotate(6deg)' },
     options: [
-      { label: 'margin-right: 4rem;', isCorrect: false },
-      { label: 'margin-left: 4rem;', isCorrect: true },
-      { label: 'margin-top: 4rem;', isCorrect: false },
-      { label: 'margin-bottom: 4rem;', isCorrect: false },
+      { label: 'transform: rotate(-6deg);', isCorrect: false },
+      { label: 'transform: rotate(6deg);', isCorrect: true },
+      { label: 'transform: skew(6deg);', isCorrect: false },
+      { label: 'transform: scale(1.1);', isCorrect: false },
     ],
-    Icon: Ruler,
+    Icon: MousePointer,
   },
   {
-    id: 'p3',
-    title: 'Padded Top',
-    property: 'padding',
-    description: 'The internal spacing is only at the top. Can you identify the correct property?',
-    style: { ...sharedBoxStyle, paddingTop: '3rem', borderRadius: '1rem' },
+    id: 't2',
+    title: 'Bigger and Bolder',
+    property: 'transform',
+    description: 'How is this element being enlarged?',
+    style: { ...sharedBoxStyle, borderRadius: '1rem', transform: 'scale(1.2)' },
     options: [
-      { label: 'padding-bottom: 3rem;', isCorrect: false },
-      { label: 'padding: 3rem;', isCorrect: false },
-      { label: 'padding-left: 3rem;', isCorrect: false },
-      { label: 'padding-top: 3rem;', isCorrect: true },
+      { label: 'transform: scale(1.05);', isCorrect: false },
+      { label: 'transform: scale(1.5);', isCorrect: false },
+      { label: 'transform: scaleX(1.2);', isCorrect: false },
+      { label: 'transform: scale(1.2);', isCorrect: true },
     ],
-    Icon: Ruler,
+    Icon: MousePointer,
+  },
+  {
+    id: 'f1',
+    title: 'Faded Out',
+    property: 'filter',
+    description: 'This element is faded. Which filter is being applied?',
+    style: { ...sharedBoxStyle, borderRadius: '1rem', filter: 'grayscale(100%)' },
+    options: [
+      { label: 'filter: brightness(0.5);', isCorrect: false },
+      { label: 'filter: opacity(0.5);', isCorrect: false },
+      { label: 'filter: grayscale(100%);', isCorrect: true },
+      { label: 'filter: saturate(0);', isCorrect: true }, // same as grayscale
+    ],
+    Icon: SlidersHorizontal,
+  },
+    {
+    id: 'f2',
+    title: 'High Contrast',
+    property: 'filter',
+    description: 'Which filter property is making this element pop?',
+    style: { ...sharedBoxStyle, borderRadius: '1rem', filter: 'contrast(150%)' },
+    options: [
+        { label: 'filter: contrast(100%);', isCorrect: false },
+        { label: 'filter: contrast(200%);', isCorrect: false },
+        { label: 'filter: brightness(150%);', isCorrect: false },
+        { label: 'filter: contrast(150%);', isCorrect: true },
+    ],
+    Icon: SlidersHorizontal,
   },
 ];
