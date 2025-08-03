@@ -148,7 +148,7 @@ export default function Quiz() {
             </div>
           )}
           {showMarginContainer && (
-            <div className="border-2 border-dashed border-foreground/30 flex items-center justify-center p-4">
+            <div className="border-2 border-dashed border-foreground/30 flex items-center justify-center">
               <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"
                 style={currentQuestion.style}
