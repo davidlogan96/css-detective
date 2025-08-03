@@ -5,7 +5,7 @@ import { Ruler, Scan, Square, MousePointer, SlidersHorizontal } from 'lucide-rea
 export type Question = {
   id: string;
   title: string;
-  property: 'border-radius' | 'margin' | 'padding' | 'border' | 'transform' | 'filter';
+  property: 'border-radius' | 'margin' | 'padding' | 'border' | 'transform' | 'filter' | 'cursor';
   description: string;
   style: CSSProperties;
   originalStyle?: CSSProperties;
@@ -198,5 +198,19 @@ export const quizQuestions: Question[] = [
         { label: 'filter: contrast(150%);', isCorrect: true },
     ],
     Icon: SlidersHorizontal,
+  },
+  {
+    id: 'c1',
+    title: 'Clickable Clue',
+    property: 'cursor',
+    description: 'Which cursor property indicates this element is interactive?',
+    style: { ...sharedBoxStyle, borderRadius: '1rem', cursor: 'pointer' },
+    options: [
+        { label: 'cursor: help;', isCorrect: false },
+        { label: 'cursor: pointer;', isCorrect: true },
+        { label: 'cursor: grab;', isCorrect: false },
+        { label: 'cursor: default;', isCorrect: false },
+    ],
+    Icon: MousePointer,
   },
 ];
