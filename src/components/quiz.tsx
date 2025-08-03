@@ -137,16 +137,18 @@ export default function Quiz() {
             <div className="flex w-full justify-around items-center">
               <div
                 style={currentQuestion.originalStyle}
+                data-ai-hint="geometric shape for comparison"
               />
               <span className="text-4xl text-foreground/50 shrink-0 font-light">→</span>
               <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"
                 style={currentQuestion.style}
+                data-ai-hint="transformed geometric shape"
               />
             </div>
           )}
           {showMarginContainer && (
-            <div className="border-2 border-dashed border-foreground/30 flex items-center justify-center">
+            <div className="border-2 border-dashed border-foreground/30 flex items-center justify-center p-4">
               <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"
                 style={currentQuestion.style}

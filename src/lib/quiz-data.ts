@@ -1,11 +1,11 @@
 
 import type { CSSProperties } from 'react';
-import { Ruler, Scan, Square, MousePointer, SlidersHorizontal } from 'lucide-react';
+import { Ruler, Scan, Square, MousePointer, SlidersHorizontal, Eye } from 'lucide-react';
 
 export type Question = {
   id: string;
   title: string;
-  property: 'border-radius' | 'margin' | 'padding' | 'border' | 'transform' | 'filter' | 'cursor';
+  property: 'border-radius' | 'margin' | 'padding' | 'border' | 'transform' | 'filter' | 'cursor' | 'opacity';
   description: string;
   style: CSSProperties;
   originalStyle?: CSSProperties;
@@ -227,5 +227,19 @@ export const quizQuestions: Question[] = [
         { label: 'cursor: default;', isCorrect: false },
     ],
     Icon: MousePointer,
+  },
+  {
+    id: 'o1',
+    title: 'Slightly See-Through',
+    property: 'opacity',
+    description: 'This element is semi-transparent. Which opacity value is being used?',
+    style: { ...sharedBoxStyle, borderRadius: '1rem', opacity: 0.6 },
+    options: [
+      { label: 'opacity: 0.2;', isCorrect: false },
+      { label: 'opacity: 0.8;', isCorrect: false },
+      { label: 'opacity: 0.6;', isCorrect: true },
+      { label: 'opacity: 1;', isCorrect: false },
+    ],
+    Icon: Eye,
   },
 ];
