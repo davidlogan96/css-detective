@@ -88,7 +88,7 @@ export const quizQuestions: Question[] = [
     title: 'A Little Breathing Room',
     property: 'margin',
     description: "How much margin is being applied to all sides of the blue box?",
-    style: { ...sharedBoxStyle, width: '8rem', height: '8rem', margin: '2rem', backgroundColor: 'hsl(var(--primary))' },
+    style: { ...sharedBoxStyle, width: '8rem', height: '8rem', margin: '2rem' },
     options: [
       { label: 'margin: 1rem;', isCorrect: false },
       { label: 'margin: 1.5rem;', isCorrect: false },
@@ -102,7 +102,7 @@ export const quizQuestions: Question[] = [
     title: 'Top and Bottom',
     property: 'margin',
     description: "What's the two-value margin shorthand for this element's spacing?",
-    style: { ...sharedBoxStyle, width: '8rem', height: '8rem', margin: '3rem 1rem', backgroundColor: 'hsl(var(--primary))' },
+    style: { ...sharedBoxStyle, width: '8rem', height: '8rem', margin: '3rem 1rem' },
     options: [
       { label: 'margin: 1rem 3rem;', isCorrect: false },
       { label: 'margin: 3rem 1rem;', isCorrect: true },

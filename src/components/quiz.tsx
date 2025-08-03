@@ -149,7 +149,7 @@ export default function Quiz() {
             <div className="w-full h-full border-2 border-dashed border-foreground/30 flex items-center justify-center">
               <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"
-                style={{...currentQuestion.style, backgroundColor: 'hsl(var(--primary))' }}
+                style={currentQuestion.style}
                 data-ai-hint="geometric shape for margin"
               />
             </div>
