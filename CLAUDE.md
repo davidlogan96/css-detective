@@ -10,6 +10,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Linting**: `npm run lint`
 - **Type checking**: `npm run typecheck`
 - **AI development**: `npm run genkit:dev` or `npm run genkit:watch` (for Genkit AI flows)
+- **Testing**: `npm test` (runs Playwright tests)
+- **Testing (headed)**: `npm run test:headed` (runs tests with browser UI)
+- **Testing (interactive)**: `npm run test:ui` (opens Playwright UI)
+- **Testing (debug)**: `npm run test:debug` (runs tests with debugging)
+- **Test reports**: `npm run test:report` (shows test results)
 
 ## Architecture Overview
 
@@ -20,6 +25,7 @@ This is a Next.js application built with React and TypeScript for a CSS quiz gam
 - **Styling**: Tailwind CSS with shadcn/ui components
 - **UI Components**: shadcn/ui component library
 - **AI Integration**: Google Genkit with Gemini 2.0 Flash model
+- **Testing**: Playwright for end-to-end testing
 - **Deployment**: Firebase App Hosting
 
 ### Project Structure
@@ -28,6 +34,7 @@ This is a Next.js application built with React and TypeScript for a CSS quiz gam
 - `src/ai/`: Genkit AI configuration and development setup
 - `src/hooks/`: Custom React hooks
 - `src/lib/`: Utility functions and quiz data
+- `tests/`: Playwright end-to-end tests
 
 ### Component Architecture
 The main quiz functionality is built with:
