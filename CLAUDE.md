@@ -9,7 +9,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Production start**: `npm start`
 - **Linting**: `npm run lint`
 - **Type checking**: `npm run typecheck`
-- **AI development**: `npm run genkit:dev` or `npm run genkit:watch` (for Genkit AI flows)
 - **Testing**: `npm test` (runs Playwright tests)
 - **Testing (headed)**: `npm run test:headed` (runs tests with browser UI)
 - **Testing (interactive)**: `npm run test:ui` (opens Playwright UI)
@@ -18,20 +17,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture Overview
 
-This is a Next.js application built with React and TypeScript for a CSS quiz game called "CSS Detective". The application uses Firebase/Google Cloud infrastructure and includes AI integration via Genkit.
+This is a Next.js application built with React and TypeScript for a CSS quiz game called "CSS Detective". The application uses Firebase/Google Cloud infrastructure.
 
 ### Key Technologies
 - **Framework**: Next.js 15 with App Router
 - **Styling**: Tailwind CSS with shadcn/ui components
 - **UI Components**: shadcn/ui component library
-- **AI Integration**: Google Genkit with Gemini 2.0 Flash model
 - **Testing**: Playwright for end-to-end testing
 - **Deployment**: Firebase App Hosting
 
 ### Project Structure
 - `src/app/`: Next.js app router pages and layout
 - `src/components/`: React components including quiz components and shadcn/ui components
-- `src/ai/`: Genkit AI configuration and development setup
 - `src/hooks/`: Custom React hooks
 - `src/lib/`: Utility functions and quiz data
 - `tests/`: Playwright end-to-end tests
@@ -58,5 +55,4 @@ The quiz displays CSS questions with visual examples and multiple choice answers
 
 ### Development Notes
 - The application runs on port 9002 to avoid conflicts
-- AI functionality is separate from the main quiz logic
 - There are additional quiz components (`css-detective-quiz.tsx`) that appear to be works in progress for integration
