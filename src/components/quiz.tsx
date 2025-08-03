@@ -114,7 +114,7 @@ export default function Quiz() {
     );
   }
 
-  const showOriginalState = currentQuestion.property === 'transform' || currentQuestion.property === 'filter';
+  const showComparison = currentQuestion.property === 'transform' || currentQuestion.property === 'filter';
   const showMarginContainer = currentQuestion.property === 'margin';
   const showPaddingContent = currentQuestion.property === 'padding';
 
@@ -133,17 +133,17 @@ export default function Quiz() {
       </CardHeader>
       <CardContent>
         <div className="relative flex h-60 w-full items-center justify-center rounded-lg border-2 border-dashed bg-muted/30 p-4 overflow-hidden">
-          {showOriginalState && (
-            <>
+          {showComparison && (
+            <div className="flex w-full justify-around items-center">
               <div
-                className="absolute border-2 border-dashed border-foreground/30 opacity-50"
+                className="border-2 border-dashed border-foreground/30 opacity-50"
                 style={currentQuestion.originalStyle}
               />
               <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"
                 style={currentQuestion.style}
               />
-            </>
+            </div>
           )}
           {showMarginContainer && (
             <div className="w-full h-full border-2 border-dashed border-foreground/30 flex items-center justify-center">
@@ -163,7 +163,7 @@ export default function Quiz() {
             </div>
           )}
           {/* For box-shadow and border-radius */}
-          {!showOriginalState && !showMarginContainer && !showPaddingContent && (
+          {!showComparison && !showMarginContainer && !showPaddingContent && (
             <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"
                 style={currentQuestion.style}
