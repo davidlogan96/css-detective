@@ -6,7 +6,7 @@ import { quizQuestions, type Question } from '@/lib/quiz-data';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle2, XCircle, Award, Target, Repeat } from 'lucide-react';
+import { CheckCircle2, XCircle, Award, Target, Repeat, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -136,9 +136,10 @@ export default function Quiz() {
           {showComparison && (
             <div className="flex w-full justify-around items-center">
               <div
-                className="border-2 border-dashed border-foreground/30 opacity-50"
+                className="opacity-50"
                 style={currentQuestion.originalStyle}
               />
+              <ArrowRight className="h-8 w-8 text-foreground/30 shrink-0" />
               <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"
                 style={currentQuestion.style}
@@ -149,7 +150,7 @@ export default function Quiz() {
             <div className="w-full h-full border-2 border-dashed border-foreground/30 flex items-center justify-center">
               <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"
-                style={currentQuestion.style}
+                style={{...currentQuestion.style, backgroundColor: 'hsl(var(--primary))' }}
                 data-ai-hint="geometric shape for margin"
               />
             </div>
