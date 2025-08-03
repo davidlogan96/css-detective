@@ -1,6 +1,6 @@
 
 import type { CSSProperties } from 'react';
-import { Ruler, Scan, Square, MousePointer, SlidersHorizontal, Eye, Layout, Type, Palette, Layers } from 'lucide-react';
+import { Square, Layout, SlidersHorizontal, Type, Palette } from 'lucide-react';
 
 export type Category = {
   id: string;
@@ -18,15 +18,12 @@ export type Question = {
   description: string;
   style: CSSProperties;
   originalStyle?: CSSProperties;
-  containerContent?: boolean;
   multipleItems?: boolean;
-  gridItems?: boolean;
   textContent?: string;
   options: {
     label: string;
     isCorrect: boolean;
   }[];
-  Icon: React.ElementType;
 };
 
 export const categories: Record<string, Category> = {
@@ -92,7 +89,6 @@ export const quizQuestions: Question[] = [
       { label: 'border-radius: 2rem;', isCorrect: false },
       { label: 'border-radius: 50%;', isCorrect: false },
     ],
-    Icon: Scan,
   },
   {
     id: 'br2',
@@ -107,7 +103,6 @@ export const quizQuestions: Question[] = [
       { label: 'border-radius: 999px;', isCorrect: false },
       { label: 'border-radius: 50%;', isCorrect: true },
     ],
-    Icon: Scan,
   },
   {
     id: 'b1',
@@ -122,7 +117,6 @@ export const quizQuestions: Question[] = [
       { label: "border: 15px solid ...;", isCorrect: false },
       { label: "outline: 10px solid ...;", isCorrect: false },
     ],
-    Icon: Square,
   },
   {
     id: 'b2',
@@ -137,7 +131,6 @@ export const quizQuestions: Question[] = [
       { label: 'border-style: groove;', isCorrect: false },
       { label: 'border-style: dashed;', isCorrect: true },
     ],
-    Icon: Square,
   },
   {
     id: 'm1',
@@ -152,7 +145,6 @@ export const quizQuestions: Question[] = [
       { label: 'margin: 2rem;', isCorrect: true },
       { label: 'margin: 3rem;', isCorrect: false },
     ],
-    Icon: Ruler,
   },
   {
     id: 'm2',
@@ -167,7 +159,6 @@ export const quizQuestions: Question[] = [
       { label: 'margin: 3rem;', isCorrect: false },
       { label: 'margin: 1rem;', isCorrect: false },
     ],
-    Icon: Ruler,
   },
   {
     id: 'p1',
@@ -182,7 +173,6 @@ export const quizQuestions: Question[] = [
       { label: 'padding: 1.5rem;', isCorrect: true },
       { label: 'padding: 0.5rem;', isCorrect: false },
     ],
-    Icon: Ruler,
   },
   {
     id: 'p2',
@@ -197,7 +187,6 @@ export const quizQuestions: Question[] = [
       { label: 'padding: 3rem;', isCorrect: false },
       { label: 'padding: 1rem 3rem;', isCorrect: true },
     ],
-    Icon: Ruler,
   },
 
   // LAYOUT CATEGORY
@@ -217,14 +206,12 @@ export const quizQuestions: Question[] = [
       borderRadius: '0.5rem',
       border: '2px dashed hsl(var(--border))'
     },
-    containerContent: true,
     options: [
       { label: 'justify-content: center;\nalign-items: center;', isCorrect: true },
       { label: 'justify-content: center;\nalign-items: flex-start;', isCorrect: false },
       { label: 'justify-content: flex-start;\nalign-items: center;', isCorrect: false },
       { label: 'justify-content: space-between;\nalign-items: center;', isCorrect: false },
     ],
-    Icon: Layout,
   },
   {
     id: 'flex2',
@@ -250,7 +237,6 @@ export const quizQuestions: Question[] = [
       { label: 'justify-content: space-evenly;', isCorrect: false },
       { label: 'justify-content: center;', isCorrect: false },
     ],
-    Icon: Layout,
   },
   {
     id: 'grid1',
@@ -270,14 +256,12 @@ export const quizQuestions: Question[] = [
       border: '2px dashed hsl(var(--border))',
       padding: '1rem'
     },
-    gridItems: true,
     options: [
       { label: 'grid-template-columns: 50% 50%;', isCorrect: false },
       { label: 'grid-template-columns: 1fr 1fr;', isCorrect: true },
       { label: 'grid-template-columns: auto auto;', isCorrect: false },
       { label: 'grid-template-columns: repeat(3, 1fr);', isCorrect: false },
     ],
-    Icon: Layout,
   },
 
   // EFFECTS CATEGORY
@@ -295,7 +279,6 @@ export const quizQuestions: Question[] = [
       { label: 'transform: skew(6deg);', isCorrect: false },
       { label: 'transform: scale(1.1);', isCorrect: false },
     ],
-    Icon: MousePointer,
   },
   {
     id: 't2',
@@ -311,7 +294,6 @@ export const quizQuestions: Question[] = [
       { label: 'transform: scaleX(1.2);', isCorrect: false },
       { label: 'transform: scale(1.2);', isCorrect: true },
     ],
-    Icon: MousePointer,
   },
   {
     id: 'f1',
@@ -327,7 +309,6 @@ export const quizQuestions: Question[] = [
       { label: 'filter: grayscale(100%);', isCorrect: true },
       { label: 'filter: saturate(0);', isCorrect: false },
     ],
-    Icon: SlidersHorizontal,
   },
   {
     id: 'f2',
@@ -343,7 +324,6 @@ export const quizQuestions: Question[] = [
         { label: 'text-transform: uppercase;', isCorrect: false },
         { label: 'filter: contrast(150%);', isCorrect: true },
     ],
-    Icon: SlidersHorizontal,
   },
   {
     id: 'f3',
@@ -359,7 +339,6 @@ export const quizQuestions: Question[] = [
         { label: 'filter: brightness(80%);', isCorrect: false },
         { label: 'filter: drop-shadow(0 0 4px);', isCorrect: false },
     ],
-    Icon: SlidersHorizontal,
   },
   {
     id: 'shadow1',
@@ -374,7 +353,6 @@ export const quizQuestions: Question[] = [
       { label: 'box-shadow: 2px 2px 8px black;', isCorrect: false },
       { label: 'box-shadow: inset 0 0 10px rgba(0,0,0,0.2);', isCorrect: false },
     ],
-    Icon: Layers,
   },
   {
     id: 'c1',
@@ -389,7 +367,6 @@ export const quizQuestions: Question[] = [
         { label: 'cursor: grab;', isCorrect: false },
         { label: 'cursor: default;', isCorrect: false },
     ],
-    Icon: MousePointer,
   },
   {
     id: 'o1',
@@ -404,7 +381,6 @@ export const quizQuestions: Question[] = [
       { label: 'opacity: 0.6;', isCorrect: true },
       { label: 'opacity: 1;', isCorrect: false },
     ],
-    Icon: Eye,
   },
 
   // TYPOGRAPHY CATEGORY
@@ -428,7 +404,6 @@ export const quizQuestions: Question[] = [
       { label: 'font-weight: 700;', isCorrect: true },
       { label: 'font-weight: 900;', isCorrect: false },
     ],
-    Icon: Type,
   },
   {
     id: 'align1',
@@ -457,7 +432,6 @@ export const quizQuestions: Question[] = [
       { label: 'text-align: right;', isCorrect: false },
       { label: 'text-align: justify;', isCorrect: false },
     ],
-    Icon: Type,
   },
 
   // COLORS CATEGORY
@@ -478,6 +452,5 @@ export const quizQuestions: Question[] = [
       { label: 'background: linear-gradient(90deg, purple, blue);', isCorrect: false },
       { label: 'background-color: blue;', isCorrect: false },
     ],
-    Icon: Palette,
   },
 ];
