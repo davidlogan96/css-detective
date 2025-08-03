@@ -107,7 +107,7 @@ export default function Quiz() {
     return (
       <Card className="w-full max-w-4xl mx-4">
         <CardHeader className="pb-4">
-          <CardTitle className="text-xl md:text-2xl font-headline text-center">Select Quiz Categories</CardTitle>
+          <CardTitle className="text-xl md:text-2xl font-headline text-center" data-testid="category-selection-title">Select Quiz Categories</CardTitle>
           <CardDescription className="text-center text-sm md:text-base">
             Pick the CSS topics you want to be quizzed on. You can select multiple categories.
           </CardDescription>
@@ -123,6 +123,7 @@ export default function Quiz() {
                 <button
                   key={category.id}
                   onClick={() => toggleCategory(category.id)}
+                  data-testid={`category-button-${category.id}`}
                   className={cn(
                     'p-4 md:p-6 rounded-lg border-2 text-left transition-all duration-200 relative touch-manipulation',
                     'min-h-[100px] md:min-h-[120px] active:scale-95',
@@ -160,7 +161,7 @@ export default function Quiz() {
         </CardContent>
         
         <CardFooter className="flex flex-col gap-3 md:gap-4 px-4 md:px-6">
-          <div className="text-center text-xs md:text-sm text-muted-foreground">
+          <div className="text-center text-xs md:text-sm text-muted-foreground" data-testid="question-count">
             {selectedCategories.size > 0 ? (
               <>
                 {quizQuestions.filter(q => selectedCategories.has(q.category)).length} questions selected 
@@ -176,6 +177,7 @@ export default function Quiz() {
             disabled={selectedCategories.size === 0}
             className="w-full touch-manipulation active:scale-95" 
             size="lg"
+            data-testid="start-quiz-button"
           >
             Start Quiz
             <ArrowRight className="ml-2 h-4 w-4" />
@@ -215,24 +217,24 @@ export default function Quiz() {
           <div className="mx-auto bg-accent/10 border border-accent/20 p-3 rounded-full mb-4 w-fit">
             <Award className="h-10 w-10 text-accent" />
           </div>
-          <CardTitle className="text-3xl">Quiz Complete!</CardTitle>
+          <CardTitle className="text-3xl" data-testid="completion-title">Quiz Complete!</CardTitle>
           <CardDescription>
             You've reached the end of the line, detective.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-5xl font-bold text-foreground">
+          <p className="text-5xl font-bold text-foreground" data-testid="score-display">
             {score} / {shuffledQuestions.length}
           </p>
           <p className="text-muted-foreground mt-2">Correct Answers</p>
         </CardContent>
         <CardFooter>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full">
-            <Button onClick={handleBackToCategories} variant="outline" className="flex-1 touch-manipulation active:scale-95">
+            <Button onClick={handleBackToCategories} variant="outline" className="flex-1 touch-manipulation active:scale-95" data-testid="new-categories-button">
               <Target className="mr-2 h-4 w-4" />
               New Categories
             </Button>
-            <Button onClick={handleRestart} className="flex-1 touch-manipulation active:scale-95" size="lg">
+            <Button onClick={handleRestart} className="flex-1 touch-manipulation active:scale-95" size="lg" data-testid="same-categories-button">
               <Repeat className="mr-2 h-4 w-4" />
               Same Categories
             </Button>
@@ -338,7 +340,7 @@ export default function Quiz() {
       <CardHeader className="pb-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 mb-2">
             <div className="flex items-center gap-2 md:gap-3 min-w-0">
-              <CardTitle className="text-lg md:text-2xl font-headline truncate">{currentQuestion.title}</CardTitle>
+              <CardTitle className="text-lg md:text-2xl font-headline truncate" data-testid="question-title">{currentQuestion.title}</CardTitle>
               <div 
                 className="px-2 py-1 rounded-full text-xs font-medium flex-shrink-0"
                 style={{ 
@@ -351,14 +353,14 @@ export default function Quiz() {
             </div>
             <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground flex-shrink-0">
                 <Target className="h-3 w-3 md:h-4 md:w-4" />
-                <span>{currentQuestionIndex + 1} of {shuffledQuestions.length}</span>
+                <span data-testid="question-counter">{currentQuestionIndex + 1} of {shuffledQuestions.length}</span>
             </div>
         </div>
-        <Progress value={isCorrect !== null ? ((currentQuestionIndex + 1) / shuffledQuestions.length) * 100 : progress} className="h-2" />
+        <Progress value={isCorrect !== null ? ((currentQuestionIndex + 1) / shuffledQuestions.length) * 100 : progress} className="h-2" data-testid="progress-bar" />
         <CardDescription className="pt-3 md:pt-4 text-sm md:text-base">{currentQuestion.description}</CardDescription>
       </CardHeader>
       <CardContent className="px-4 md:px-6">
-        <div className="relative flex h-48 md:h-60 w-full items-center justify-center rounded-lg border-2 border-dashed bg-muted/30 p-3 md:p-4 overflow-hidden">
+        <div className="relative flex h-48 md:h-60 w-full items-center justify-center rounded-lg border-2 border-dashed bg-muted/30 p-3 md:p-4 overflow-hidden" data-testid="visual-demo">
           {renderVisualContent()}
         </div>
       </CardContent>
@@ -375,6 +377,7 @@ export default function Quiz() {
                     onClick={() => handleOptionSelect(index)}
                     disabled={isCorrect !== null}
                     variant="outline"
+                    data-testid={`answer-option-${index}`}
                     className={cn(
                         'justify-start text-left text-sm md:text-base h-auto min-h-12 md:min-h-14 font-mono transition-all duration-300 p-3 md:p-4 relative',
                         'touch-manipulation active:scale-[0.98]',
@@ -406,6 +409,7 @@ export default function Quiz() {
               disabled={selectedOption === null}
               className="w-full touch-manipulation active:scale-95" 
               size="lg"
+              data-testid="submit-answer-button"
             >
               Submit Answer
             </Button>
@@ -414,6 +418,7 @@ export default function Quiz() {
               onClick={handleNextQuestion} 
               className="w-full touch-manipulation active:scale-95" 
               size="lg"
+              data-testid="next-question-button"
             >
               {currentQuestionIndex === shuffledQuestions.length - 1 ? 'Finish Quiz' : 'Next Question'}
               <ArrowRight className="ml-2 h-4 w-4" />

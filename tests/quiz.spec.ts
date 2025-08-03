@@ -6,100 +6,105 @@ test.beforeEach(async ({ page }) => {
 
 test.describe('CSS Detective Quiz', () => {
   test('should display the category selection screen initially', async ({ page }) => {
-    // Check for the main title (it might be in a CardTitle component, not semantic heading)
-    await expect(page.getByText('Select Quiz Categories')).toBeVisible();
+    // Check for the main title using testid
+    await expect(page.getByTestId('category-selection-title')).toBeVisible();
     
     // Check for the description
     await expect(page.getByText('Pick the CSS topics you want to be quizzed on')).toBeVisible();
     
-    // Check that all 5 categories are displayed
-    await expect(page.getByText('Basics')).toBeVisible();
-    await expect(page.getByText('Layout')).toBeVisible();
-    await expect(page.getByText('Visual Effects')).toBeVisible();
-    await expect(page.getByText('Typography')).toBeVisible();
-    await expect(page.getByText('Colors & Gradients')).toBeVisible();
+    // Check that all 5 categories are displayed using testids
+    await expect(page.getByTestId('category-button-basics')).toBeVisible();
+    await expect(page.getByTestId('category-button-layout')).toBeVisible();
+    await expect(page.getByTestId('category-button-effects')).toBeVisible();
+    await expect(page.getByTestId('category-button-typography')).toBeVisible();
+    await expect(page.getByTestId('category-button-colors')).toBeVisible();
     
     // Check that "Basics" is selected by default (look for the check icon)
-    await expect(page.locator('button').filter({ hasText: 'Basics' }).locator('.lucide-check')).toBeVisible();
+    await expect(page.getByTestId('category-button-basics').locator('.lucide-check')).toBeVisible();
   });
 
   test('should allow selecting and deselecting categories', async ({ page }) => {
     // Initially Basics should be selected (check for the visual selection indicator)
-    await expect(page.locator('button').filter({ hasText: 'Basics' }).locator('.lucide-check')).toBeVisible();
+    await expect(page.getByTestId('category-button-basics').locator('.lucide-check')).toBeVisible();
     
     // Click on Layout to select it
-    await page.locator('button').filter({ hasText: 'Layout' }).click();
-    await expect(page.locator('button').filter({ hasText: 'Layout' }).locator('.lucide-check')).toBeVisible();
+    await page.getByTestId('category-button-layout').click();
+    await expect(page.getByTestId('category-button-layout').locator('.lucide-check')).toBeVisible();
     
     // Deselect Basics
-    await page.locator('button').filter({ hasText: 'Basics' }).click();
-    await expect(page.locator('button').filter({ hasText: 'Basics' }).locator('.lucide-check')).not.toBeVisible();
+    await page.getByTestId('category-button-basics').click();
+    await expect(page.getByTestId('category-button-basics').locator('.lucide-check')).not.toBeVisible();
     
     // Should show question count for selected categories
-    await expect(page.getByText(/questions selected from/)).toBeVisible();
+    await expect(page.getByTestId('question-count')).toContainText('questions selected from');
   });
 
   test('should start quiz when Start Quiz button is clicked', async ({ page }) => {
-    // Click Start Quiz (Basics should be selected by default)
-    await page.getByRole('button', { name: 'Start Quiz' }).click();
+    // Click Start Quiz using testid
+    await page.getByTestId('start-quiz-button').click();
     
     // Wait for quiz to load
     await page.waitForTimeout(2000);
     
-    // Should navigate to the quiz screen - check for key elements
-    await expect(page.getByText(/\d+ of \d+/)).toBeVisible(); // Question counter
-    await expect(page.locator('.h-2')).toBeVisible(); // Progress bar
+    // Should navigate to the quiz screen - check for key elements using testids
+    await expect(page.getByTestId('question-counter')).toBeVisible();
+    await expect(page.getByTestId('progress-bar')).toBeVisible();
     
     // Should display question title
-    await expect(page.locator('.font-headline').nth(1)).toBeVisible();
+    await expect(page.getByTestId('question-title')).toBeVisible();
     
-    // Should display multiple choice options (check for Submit Answer button instead of specific text)
-    await expect(page.getByRole('button', { name: 'Submit Answer' })).toBeVisible();
+    // Should display multiple choice options and submit button
+    await expect(page.getByTestId('submit-answer-button')).toBeVisible();
   });
 
   test('should prevent starting quiz with no categories selected', async ({ page }) => {
     // Deselect the default "Basics" category
-    await page.locator('button').filter({ hasText: 'Basics' }).click();
+    await page.getByTestId('category-button-basics').click();
     
     // Start Quiz button should be disabled
-    await expect(page.getByRole('button', { name: 'Start Quiz' })).toBeDisabled();
+    await expect(page.getByTestId('start-quiz-button')).toBeDisabled();
     
     // Should show message about selecting categories
-    await expect(page.getByText('Select at least one category to start the quiz')).toBeVisible();
+    await expect(page.getByTestId('question-count')).toContainText('Select at least one category to start the quiz');
   });
 
   test('should allow answering questions with submit-then-next flow', async ({ page }) => {
     // Start the quiz
-    await page.getByRole('button', { name: 'Start Quiz' }).click();
+    await page.getByTestId('start-quiz-button').click();
     
-    // Select an answer option
-    const firstOption = page.getByRole('button', { name: /border-radius|margin|padding/ }).first();
-    await firstOption.click();
+    // Wait for quiz to load
+    await page.waitForTimeout(1000);
+    
+    // Select the first answer option
+    await page.getByTestId('answer-option-0').click();
     
     // Submit button should be enabled
-    await expect(page.getByRole('button', { name: 'Submit Answer' })).toBeEnabled();
+    await expect(page.getByTestId('submit-answer-button')).toBeEnabled();
     
     // Submit the answer
-    await page.getByRole('button', { name: 'Submit Answer' }).click();
+    await page.getByTestId('submit-answer-button').click();
     
     // Should show next question button
-    await expect(page.getByRole('button', { name: /Next Question|Finish Quiz/ })).toBeVisible();
+    await expect(page.getByTestId('next-question-button')).toBeVisible();
     
-    // Options should be disabled after submission
-    await expect(firstOption).toBeDisabled();
+    // First option should be disabled after submission
+    await expect(page.getByTestId('answer-option-0')).toBeDisabled();
   });
 
   test('should show quiz completion screen', async ({ page }) => {
     // Start with basics category (fewer questions for faster test)
-    await page.getByRole('button', { name: 'Start Quiz' }).click();
+    await page.getByTestId('start-quiz-button').click();
     
     // Answer all questions quickly
     let questionCount = 0;
     const maxQuestions = 20; // Safety limit
     
     while (questionCount < maxQuestions) {
+      // Wait for quiz to load
+      await page.waitForTimeout(500);
+      
       // Try to find and click the first option
-      const firstOption = page.getByRole('button', { name: /border-radius|margin|padding|transform|filter|cursor|opacity|flexbox|grid|box-shadow|font-weight|text-align|background/ }).first();
+      const firstOption = page.getByTestId('answer-option-0');
       
       if (!(await firstOption.isVisible())) {
         // If no more options, we might be at completion screen
@@ -107,9 +112,9 @@ test.describe('CSS Detective Quiz', () => {
       }
       
       await firstOption.click();
-      await page.getByRole('button', { name: 'Submit Answer' }).click();
+      await page.getByTestId('submit-answer-button').click();
       
-      const nextButton = page.getByRole('button', { name: /Next Question|Finish Quiz/ });
+      const nextButton = page.getByTestId('next-question-button');
       const buttonText = await nextButton.textContent();
       
       await nextButton.click();
@@ -121,31 +126,34 @@ test.describe('CSS Detective Quiz', () => {
       questionCount++;
     }
     
-    // Should show completion screen
-    await expect(page.getByText('Quiz Complete!')).toBeVisible();
+    // Should show completion screen using testids
+    await expect(page.getByTestId('completion-title')).toBeVisible();
     await expect(page.getByText('You\'ve reached the end of the line, detective.')).toBeVisible();
     
     // Should show score
-    await expect(page.getByText(/\d+ \/ \d+/)).toBeVisible();
+    await expect(page.getByTestId('score-display')).toBeVisible();
     await expect(page.getByText('Correct Answers')).toBeVisible();
     
     // Should have restart options
-    await expect(page.getByRole('button', { name: 'New Categories' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Same Categories' })).toBeVisible();
+    await expect(page.getByTestId('new-categories-button')).toBeVisible();
+    await expect(page.getByTestId('same-categories-button')).toBeVisible();
   });
 
   test('should display visual elements correctly', async ({ page }) => {
     // Start the quiz
-    await page.getByRole('button', { name: 'Start Quiz' }).click();
+    await page.getByTestId('start-quiz-button').click();
+    
+    // Wait for quiz to load
+    await page.waitForTimeout(1000);
     
     // Should display the visual demonstration area
-    await expect(page.locator('.border-dashed').first()).toBeVisible();
+    await expect(page.getByTestId('visual-demo')).toBeVisible();
     
     // Should display category badge
     await expect(page.getByText('Basics')).toBeVisible();
     
     // Should display progress bar
-    await expect(page.locator('.h-2')).toBeVisible();
+    await expect(page.getByTestId('progress-bar')).toBeVisible();
   });
 
   test('should be responsive on mobile viewport', async ({ page }) => {
@@ -153,48 +161,54 @@ test.describe('CSS Detective Quiz', () => {
     await page.setViewportSize({ width: 375, height: 667 });
     
     // Category selection should be responsive
-    await expect(page.getByText('Select Quiz Categories')).toBeVisible();
+    await expect(page.getByTestId('category-selection-title')).toBeVisible();
     
     // Categories should stack on mobile
-    const categoryButtons = page.locator('button').filter({ hasText: /Basics|Layout|Visual Effects/ });
-    await expect(categoryButtons.first()).toBeVisible();
+    await expect(page.getByTestId('category-button-basics')).toBeVisible();
     
     // Start quiz and check mobile layout
-    await page.getByRole('button', { name: 'Start Quiz' }).click();
+    await page.getByTestId('start-quiz-button').click();
+    
+    // Wait for quiz to load
+    await page.waitForTimeout(1000);
     
     // Quiz should display properly on mobile (question title)
-    await expect(page.locator('.font-headline').nth(1)).toBeVisible();
-    await expect(page.getByRole('button', { name: /border-radius|margin|padding/ }).first()).toBeVisible();
+    await expect(page.getByTestId('question-title')).toBeVisible();
+    await expect(page.getByTestId('answer-option-0')).toBeVisible();
   });
 
   test('should handle category filtering correctly', async ({ page }) => {
     // Select only Layout category
-    await page.locator('button').filter({ hasText: 'Basics' }).click(); // Deselect basics
-    await page.locator('button').filter({ hasText: 'Layout' }).click(); // Select layout
+    await page.getByTestId('category-button-basics').click(); // Deselect basics
+    await page.getByTestId('category-button-layout').click(); // Select layout
     
     // Check question count updates
-    await expect(page.getByText(/questions selected from 1 category/)).toBeVisible();
+    await expect(page.getByTestId('question-count')).toContainText('questions selected from 1 category');
     
     // Start quiz
-    await page.getByRole('button', { name: 'Start Quiz' }).click();
+    await page.getByTestId('start-quiz-button').click();
     
-    // Should display Layout category badge
-    await expect(page.getByText('Layout')).toBeVisible();
+    // Wait for quiz to load
+    await page.waitForTimeout(1000);
+    
+    // Should display Layout category badge (be more specific to avoid multiple matches)
+    await expect(page.locator('.rounded-full').filter({ hasText: 'Layout' })).toBeVisible();
   });
 
   test('should navigate back to category selection', async ({ page }) => {
     // Start quiz and complete it
-    await page.getByRole('button', { name: 'Start Quiz' }).click();
+    await page.getByTestId('start-quiz-button').click();
     
     // Fast-forward through questions (simplified)
     for (let i = 0; i < 5; i++) {
-      const firstOption = page.getByRole('button', { name: /border-radius|margin|padding/ }).first();
+      await page.waitForTimeout(500);
+      const firstOption = page.getByTestId('answer-option-0');
       if (!(await firstOption.isVisible())) break;
       
       await firstOption.click();
-      await page.getByRole('button', { name: 'Submit Answer' }).click();
+      await page.getByTestId('submit-answer-button').click();
       
-      const nextButton = page.getByRole('button', { name: /Next Question|Finish Quiz/ });
+      const nextButton = page.getByTestId('next-question-button');
       const buttonText = await nextButton.textContent();
       await nextButton.click();
       
@@ -202,11 +216,11 @@ test.describe('CSS Detective Quiz', () => {
     }
     
     // Click "New Categories" to go back
-    if (await page.getByRole('button', { name: 'New Categories' }).isVisible()) {
-      await page.getByRole('button', { name: 'New Categories' }).click();
+    if (await page.getByTestId('new-categories-button').isVisible()) {
+      await page.getByTestId('new-categories-button').click();
       
       // Should be back at category selection
-      await expect(page.getByText('Select Quiz Categories')).toBeVisible();
+      await expect(page.getByTestId('category-selection-title')).toBeVisible();
     }
   });
 });
