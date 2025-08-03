@@ -1,24 +1,32 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { quizQuestions, type Question } from '@/lib/quiz-data';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle2, XCircle, Award, Target, Repeat } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
+
 
 const shuffleArray = (array: any[]) => {
-  return array.sort(() => Math.random() - 0.5);
+  return [...array].sort(() => Math.random() - 0.5);
 };
 
 export default function Quiz() {
-  const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>(() => shuffleArray([...quizQuestions]));
+  const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [score, setScore] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    setShuffledQuestions(shuffleArray([...quizQuestions]));
+  }, []);
 
   const currentQuestion = useMemo(() => shuffledQuestions[currentQuestionIndex], [currentQuestionIndex, shuffledQuestions]);
 
@@ -53,6 +61,29 @@ export default function Quiz() {
   };
   
   const progress = ((currentQuestionIndex) / shuffledQuestions.length) * 100;
+
+  if (!isClient || !currentQuestion) {
+    return (
+      <Card className="w-full max-w-2xl">
+        <CardHeader>
+          <Skeleton className="h-8 w-3/4" />
+          <Skeleton className="h-2 w-full mt-2" />
+          <Skeleton className="h-5 w-full mt-4" />
+        </CardHeader>
+        <CardContent>
+          <Skeleton className="h-60 w-full" />
+        </CardContent>
+        <CardFooter className="flex-col items-start gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+                <Skeleton className="h-14 w-full" />
+                <Skeleton className="h-14 w-full" />
+                <Skeleton className="h-14 w-full" />
+                <Skeleton className="h-14 w-full" />
+            </div>
+        </CardFooter>
+      </Card>
+    );
+  }
 
   if (quizFinished) {
     return (
