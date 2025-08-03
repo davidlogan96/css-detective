@@ -113,6 +113,8 @@ export default function Quiz() {
     );
   }
 
+  const showOriginalState = currentQuestion.property === 'transform' || currentQuestion.property === 'filter';
+
   return (
     <Card className="w-full max-w-2xl animate-in fade-in zoom-in-95 duration-500">
       <CardHeader>
@@ -128,6 +130,12 @@ export default function Quiz() {
       </CardHeader>
       <CardContent>
         <div className="relative flex h-60 w-full items-center justify-center rounded-lg border-2 border-dashed bg-muted/30 p-4 overflow-hidden">
+          {showOriginalState && (
+            <div
+              className="absolute flex items-center justify-center border-2 border-dashed border-foreground/30 opacity-50"
+              style={currentQuestion.originalStyle}
+            />
+          )}
           <div
             className="flex items-center justify-center transition-all duration-300 ease-in-out"
             style={currentQuestion.style}
