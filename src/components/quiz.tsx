@@ -114,6 +114,7 @@ export default function Quiz() {
   }
 
   const showOriginalState = currentQuestion.property === 'transform' || currentQuestion.property === 'filter';
+  const showContainer = currentQuestion.property === 'margin';
 
   return (
     <Card className="w-full max-w-2xl animate-in fade-in zoom-in-95 duration-500">
@@ -136,13 +137,24 @@ export default function Quiz() {
               style={currentQuestion.originalStyle}
             />
           )}
-          <div
-            className="flex items-center justify-center transition-all duration-300 ease-in-out"
-            style={currentQuestion.style}
-          >
-            {currentQuestion.property === 'padding' && <div className="h-full w-full rounded-md bg-background/50 border-2 border-dashed" data-ai-hint="geometric shape"></div>}
-            {currentQuestion.property === 'margin' && <div className="h-full w-full bg-transparent" data-ai-hint="geometric shape for margin"></div>}
-          </div>
+           {showContainer && (
+            <div className="w-full h-full border-2 border-dashed border-foreground/30 flex items-center justify-center">
+              <div
+                className="flex items-center justify-center transition-all duration-300 ease-in-out"
+                style={currentQuestion.style}
+              >
+                <div className="h-full w-full bg-transparent" data-ai-hint="geometric shape for margin"></div>
+              </div>
+            </div>
+          )}
+          {!showContainer && (
+            <div
+              className="flex items-center justify-center transition-all duration-300 ease-in-out"
+              style={currentQuestion.style}
+            >
+              {currentQuestion.property === 'padding' && <div className="h-full w-full rounded-md bg-background/50 border-2 border-dashed" data-ai-hint="geometric shape"></div>}
+            </div>
+          )}
         </div>
       </CardContent>
       <CardFooter className="flex-col items-start gap-3">
