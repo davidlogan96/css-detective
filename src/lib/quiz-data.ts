@@ -14,7 +14,7 @@ export type Question = {
   id: string;
   category: string;
   title: string;
-  property: 'border-radius' | 'margin' | 'padding' | 'border' | 'transform' | 'filter' | 'cursor' | 'opacity' | 'flexbox' | 'grid' | 'box-shadow' | 'font-weight' | 'text-align' | 'background';
+  property: 'border-radius' | 'margin' | 'padding' | 'border' | 'transform' | 'filter' | 'cursor' | 'opacity' | 'flexbox' | 'grid' | 'font-weight' | 'text-align' | 'background';
   description: string;
   style: CSSProperties;
   originalStyle?: CSSProperties;
@@ -338,20 +338,6 @@ export const quizQuestions: Question[] = [
         { label: 'filter: blur(4px);', isCorrect: true },
         { label: 'filter: brightness(80%);', isCorrect: false },
         { label: 'filter: drop-shadow(0 0 4px);', isCorrect: false },
-    ],
-  },
-  {
-    id: 'shadow1',
-    category: 'effects',
-    title: 'Floating Effect',
-    property: 'box-shadow',
-    description: 'This element appears to hover above the surface. Which property creates this depth effect?',
-    style: { ...sharedBoxStyle, borderRadius: '1rem', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' },
-    options: [
-      { label: 'box-shadow: 0 2px 4px rgba(0,0,0,0.1);', isCorrect: false },
-      { label: 'box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);', isCorrect: true },
-      { label: 'box-shadow: 2px 2px 8px black;', isCorrect: false },
-      { label: 'box-shadow: inset 0 0 10px rgba(0,0,0,0.2);', isCorrect: false },
     ],
   },
   {

@@ -10,7 +10,8 @@
       "Bash(npm test:*)",
       "Bash(npm run lint)",
       "Bash(npm install)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(del \"C:\\Users\\david\\Repositories\\css-detective\\tests\\simple-validation.spec.ts\")"
     ],
     "deny": []
   }
