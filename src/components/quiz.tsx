@@ -160,13 +160,13 @@ export default function Quiz() {
                     variant="outline"
                     size="lg"
                     className={cn(
-                        'justify-start text-base h-14 font-mono transition-all duration-300',
+                        'justify-start text-left text-base h-auto min-h-14 font-mono transition-all duration-300',
                         showAsCorrect && 'bg-green-500/10 border-green-500 text-green-700 dark:text-green-400 hover:bg-green-500/20',
                         showAsIncorrect && 'bg-red-500/10 border-red-500 text-red-700 dark:text-red-400 hover:bg-red-500/20 animate-shake',
                         selectedOption !== null && !isSelected && !option.isCorrect && 'opacity-50'
                     )}
                 >
-                    {option.label}
+                    <span className="whitespace-pre-wrap">{option.label}</span>
                 </Button>
             );
           })}

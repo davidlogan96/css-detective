@@ -25,7 +25,7 @@ const sharedBoxStyle: CSSProperties = {
   transition: 'all 0.3s ease-in-out',
 };
 
-const shadowColor = 'hsl(0 0% 80% / 0.1)';
+const shadowColor = 'hsl(0 0% 80% / 0.3)';
 
 export const quizQuestions: Question[] = [
   {
@@ -63,10 +63,10 @@ export const quizQuestions: Question[] = [
     description: 'Which box-shadow value creates this subtle lift effect?',
     style: { ...sharedBoxStyle, borderRadius: '1rem', boxShadow: `0 4px 6px -1px ${shadowColor}, 0 2px 4px -2px ${shadowColor}` },
     options: [
-      { label: 'shadow-sm', isCorrect: false },
-      { label: 'shadow-md', isCorrect: true },
-      { label: 'shadow-lg', isCorrect: false },
-      { label: 'shadow-xl', isCorrect: false },
+      { label: `0 1px 2px 0 ${shadowColor}`, isCorrect: false },
+      { label: `0 4px 6px -1px ${shadowColor}, 0 2px 4px -2px ${shadowColor}`, isCorrect: true },
+      { label: `0 10px 15px -3px ${shadowColor}, 0 4px 6px -4px ${shadowColor}`, isCorrect: false },
+      { label: `0 20px 25px -5px ${shadowColor}, 0 8px 10px -6px ${shadowColor}`, isCorrect: false },
     ],
     Icon: Square,
   },
@@ -77,10 +77,10 @@ export const quizQuestions: Question[] = [
     description: 'This shadow is much more pronounced. Which one is it?',
     style: { ...sharedBoxStyle, borderRadius: '1rem', boxShadow: `0 20px 25px -5px ${shadowColor}, 0 8px 10px -6px ${shadowColor}` },
     options: [
-        { label: 'shadow-lg', isCorrect: false },
-        { label: 'shadow-xl', isCorrect: false },
-        { label: 'shadow-2xl', isCorrect: true },
-        { label: 'shadow-inner', isCorrect: false },
+        { label: `0 10px 15px -3px ${shadowColor}, 0 4px 6px -4px ${shadowColor}`, isCorrect: false },
+        { label: `0 20px 25px -5px ${shadowColor}, 0 8px 10px -6px ${shadowColor}`, isCorrect: true },
+        { label: `0 1px 2px 0 ${shadowColor}`, isCorrect: false },
+        { label: `inset 0 2px 4px 0 ${shadowColor}`, isCorrect: false },
     ],
     Icon: Square,
   },
