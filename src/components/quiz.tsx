@@ -162,7 +162,7 @@ export default function Quiz() {
               <div className="h-full w-full rounded-md bg-background/50 border-2 border-dashed" data-ai-hint="geometric shape"></div>
             </div>
           )}
-          {/* For box-shadow and border-radius */}
+          
           {!showComparison && !showMarginContainer && !showPaddingContent && (
             <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"

@@ -1,10 +1,11 @@
+
 import type { CSSProperties } from 'react';
 import { Ruler, Scan, Square, MousePointer, SlidersHorizontal } from 'lucide-react';
 
 export type Question = {
   id: string;
   title: string;
-  property: 'border-radius' | 'margin' | 'padding' | 'box-shadow' | 'transform' | 'filter';
+  property: 'border-radius' | 'margin' | 'padding' | 'border' | 'transform' | 'filter';
   description: string;
   style: CSSProperties;
   originalStyle?: CSSProperties;
@@ -24,8 +25,6 @@ const sharedBoxStyle: CSSProperties = {
   backgroundColor: 'hsl(var(--primary))',
   transition: 'all 0.3s ease-in-out',
 };
-
-const shadowColor = 'hsl(0 0% 80% / 0.3)';
 
 export const quizQuestions: Question[] = [
   {
@@ -56,31 +55,31 @@ export const quizQuestions: Question[] = [
     ],
     Icon: Scan,
   },
-    {
-    id: 'bs1',
-    title: 'Subtle Shadow',
-    property: 'box-shadow',
-    description: 'Which box-shadow value creates this subtle lift effect?',
-    style: { ...sharedBoxStyle, borderRadius: '1rem', boxShadow: `0 4px 6px -1px ${shadowColor}, 0 2px 4px -2px ${shadowColor}` },
+  {
+    id: 'b1',
+    title: 'Chunky Border',
+    property: 'border',
+    description: 'Which border value creates this thick outline?',
+    style: { ...sharedBoxStyle, border: '10px solid hsl(var(--foreground))', borderRadius: '1rem' },
     options: [
-      { label: `box-shadow: 0 1px 2px 0 ${shadowColor};`, isCorrect: false },
-      { label: `box-shadow: 0 4px 6px -1px ${shadowColor}, 0 2px 4px -2px ${shadowColor};`, isCorrect: true },
-      { label: `box-shadow: 0 10px 15px -3px ${shadowColor}, 0 4px 6px -4px ${shadowColor};`, isCorrect: false },
-      { label: `box-shadow: 0 20px 25px -5px ${shadowColor}, 0 8px 10px -6px ${shadowColor};`, isCorrect: false },
+      { label: "border: 5px solid ...;", isCorrect: false },
+      { label: "border: 10px solid ...;", isCorrect: true },
+      { label: "border: 15px solid ...;", isCorrect: false },
+      { label: "outline: 10px solid ...;", isCorrect: false },
     ],
     Icon: Square,
   },
   {
-    id: 'bs2',
-    title: 'Deep Shadow',
-    property: 'box-shadow',
-    description: 'This shadow is much more pronounced. Which one is it?',
-    style: { ...sharedBoxStyle, borderRadius: '1rem', boxShadow: `0 20px 25px -5px ${shadowColor}, 0 8px 10px -6px ${shadowColor}` },
+    id: 'b2',
+    title: 'Dashed Style',
+    property: 'border',
+    description: 'Which border-style is being used to create this effect?',
+    style: { ...sharedBoxStyle, border: '5px dashed hsl(var(--foreground))', borderRadius: '1rem' },
     options: [
-        { label: `box-shadow: 0 10px 15px -3px ${shadowColor}, 0 4px 6px -4px ${shadowColor};`, isCorrect: false },
-        { label: `box-shadow: 0 20px 25px -5px ${shadowColor}, 0 8px 10px -6px ${shadowColor};`, isCorrect: true },
-        { label: `box-shadow: 0 1px 2px 0 ${shadowColor};`, isCorrect: false },
-        { label: `box-shadow: inset 0 2px 4px 0 ${shadowColor};`, isCorrect: false },
+      { label: 'border-style: dotted;', isCorrect: false },
+      { label: 'border-style: solid;', isCorrect: false },
+      { label: 'border-style: groove;', isCorrect: false },
+      { label: 'border-style: dashed;', isCorrect: true },
     ],
     Icon: Square,
   },
