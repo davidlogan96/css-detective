@@ -138,9 +138,7 @@ export default function Quiz() {
               <div
                 style={currentQuestion.originalStyle}
               />
-               <div className="flex items-center justify-center rounded-full border border-dashed p-2 bg-background/20">
-                <ArrowRight className="h-6 w-6 text-foreground/50 shrink-0" />
-              </div>
+              <ArrowRight className="h-6 w-6 text-foreground/50 shrink-0" />
               <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"
                 style={currentQuestion.style}
