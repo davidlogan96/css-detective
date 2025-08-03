@@ -6,7 +6,7 @@ import { quizQuestions, type Question } from '@/lib/quiz-data';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle2, XCircle, Award, Target, Repeat, ArrowRight } from 'lucide-react';
+import { CheckCircle2, XCircle, Award, Target, Repeat } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -138,7 +138,7 @@ export default function Quiz() {
               <div
                 style={currentQuestion.originalStyle}
               />
-              <ArrowRight className="h-6 w-6 text-foreground/50 shrink-0" />
+              <span className="text-4xl text-foreground/50 shrink-0 font-light">→</span>
               <div
                 className="flex items-center justify-center transition-all duration-300 ease-in-out"
                 style={currentQuestion.style}
